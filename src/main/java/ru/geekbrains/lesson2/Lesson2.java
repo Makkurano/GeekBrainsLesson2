@@ -1,6 +1,7 @@
 package ru.geekbrains.lesson2;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Lesson2 {
 
@@ -23,13 +24,13 @@ public class Lesson2 {
     private static void exercise1() {
         int[] numbs = new int[10];
 
-    // Рандомно заполняем массив единицами и нулями
+        // Рандомно заполняем массив единицами и нулями
         for (int i = 0; i < numbs.length; i++) {
             int n = i % 2;
             numbs[i] = n;
         }
-        System.out.println("\nМассив был\n"+ Arrays.toString(numbs));
-    // Заменяем единицы на нули и наоборот
+        System.out.println("\nМассив был\n" + Arrays.toString(numbs));
+        // Заменяем единицы на нули и наоборот
         for (int i = 0; i < numbs.length; i++) {
             int arrayNum = numbs[i];
             switch (arrayNum) {
@@ -75,20 +76,21 @@ public class Lesson2 {
     }
 
     /*
+    Задание 4.
     Создать квадратный двумерный целочисленный массив (количество строк
     и столбцов одинаковое), и с помощью цикла(-ов) заполнить его
     диагональные элементы единицами;
      */
     private static void exercise4() {
 
-        int[][] numbs = new int [15][15];
+        int[][] numbs = new int[15][15];
         System.out.println("\nМассив задания 4");
 
         for (int i = 0; i < numbs.length; i++) {
             numbs[i][i] = 1;   //Строится первая диагональ
 
             for (int j = 0; j < numbs[i].length; j++) {
-                int lastJ = (((numbs[i].length) -1) -i); // В цикле вычисляю последний элемент J со сдвигом на предыдущий.
+                int lastJ = (((numbs[i].length) - 1) - i); // В цикле вычисляю последний элемент J со сдвигом на предыдущий.
                 numbs[i][lastJ] = 1;
                 System.out.print(numbs[i][j] + " ");
             }
@@ -96,15 +98,17 @@ public class Lesson2 {
         }
     }
 
-    // Второй вариант решения задачи 4
+    /*
+    Второй вариант решения задачи 4
+    */
     private static void exercise41() {
 
-        int[][] numbs = new int [5][5];
+        int[][] numbs = new int[5][5];
         System.out.println("\nМассив задания 4 (второй вариант)");
 
         for (int i = 0; i < numbs.length; i++) {
             for (int j = 0; j < numbs[i].length; j++) {
-                int lastj = (((numbs[i].length) -1) -i);
+                int lastj = (((numbs[i].length) - 1) - i);
 
                 if (i == j) {       //Сравниваем значения I и J, строим левую диагональ
                     numbs[i][j] = 1;
@@ -112,7 +116,6 @@ public class Lesson2 {
                 numbs[i][lastj] = 1;
                 System.out.print(numbs[i][j] + " ");
             }
-
             System.out.println();
         }
     }
@@ -122,26 +125,43 @@ public class Lesson2 {
         и максимальный элементы (без помощи интернета);
      */
     private static void exercise5() {
-        int[] numbs = {10, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 115};
+    /*
+    Создаем и заполняем рандомный массив
+    */
+        Random rnd = new Random();
+        int[] numbs = new int[10];
+        for (int i = 0; i < numbs.length; i++) {
+            numbs[i] = rnd.nextInt(100);
+        }
+        System.out.println("\nМассив задания 5\n" + Arrays.toString(numbs));
 
-        System.out.println("\nМассив задания 5\n"+ Arrays.toString(numbs));
-        int min = 0;
-        int max = 0;
-        int len = numbs.length -1;
-
-        for (int i = 0; i < len; i++) {
-            int next = (numbs[i + 1]);
-            if (numbs[i] < next){
-                min = numbs[i];
-                numbs[i] = numbs[i + 1];
-                numbs[i + 1] = min;
+        int min = numbs[0];
+        int max = numbs[0];
+        int len = numbs.length;
+    /*
+    Сравниваем первый элемент со вторым, если второй
+    Меньший из них записываем в min, так сравниваются все последующие
+    элементы с min.
+    */
+        for (int numb : numbs) {
+            if (numb < min) {
+                min = numb;
             }
-
+        }
+    /*
+    Сравниваем первый элемент со вторым, если второй
+    больший из них записываем в max, так сравниваются все последующие
+    элементы с max.
+    */
+        for (int i = 0; i < len; i++) {
+            if (numbs[i] > max) {
+                max = numbs[i];
+            }
         }
         System.out.println("Минимальное значение: " + min);
-       // System.out.println("Максимальное значение: " + max);
-
+        System.out.println("Минимальное значение: " + max);
     }
 }
+
 
 
